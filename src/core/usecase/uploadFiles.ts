@@ -20,9 +20,9 @@ export class UploadFilesConcrete {
         try {
             const fileNames: string[] = await this.getFileNames.getFileNames(this.path)
             await Promise.all((fileNames.map(async (fileName: string) => {
-                let _path: string = `${this.path}/${fileName}`
+                let path: string = `${this.path}/${fileName}`
+                let fileContent: Buffer = await this.getFileContent.getFileContent(path)
                 let _fileName: string = this.getFileName(fileName)
-                let fileContent: Buffer = await this.getFileContent.getFileContent(_path)
                 debug && console.log(`start upload`)
                 debug && console.log(_fileName)
                 await this.uploadFile.uploadFile(_fileName, fileContent)
