@@ -1,31 +1,22 @@
-import { UploadFile } from "../interface/uploadFile"
-import { GetFileNames } from "../interface/getFileNames"
-import { GetFileContent } from "../interface/getFileContent"
-const debug = true
+import { FileRepository } from "../interface/fileRepository"
 
 export class UploadFilesConcrete {
     private path: string
-    private getFileNames: GetFileNames
-    private getFileContent: GetFileContent
-    private uploadFile: UploadFile
+    private fileRepository: FileRepository
 
-    public constructor(path: string, getFileNames: GetFileNames, getFileContent: GetFileContent, uploadFile: UploadFile) {
+    public constructor(path: string, fileRepository: FileRepository) {
         this.path = path
-        this.getFileNames = getFileNames
-        this.getFileContent = getFileContent
-        this.uploadFile = uploadFile
+        this.fileRepository = fileRepository
     }
 
     public async upload(): Promise<void> {
         try {
-            const fileNames: string[] = await this.getFileNames.getFileNames(this.path)
+            const fileNames: string[] = await this.fileRepository.getNames(this.path)
             await Promise.all((fileNames.map(async (fileName: string) => {
                 let path: string = `${this.path}/${fileName}`
-                let fileContent: Buffer = await this.getFileContent.getFileContent(path)
+                let fileContent: Buffer = await this.fileRepository.getContent(path)
                 let _fileName: string = this.getFileName(fileName)
-                debug && console.log(`start upload`)
-                debug && console.log(_fileName)
-                await this.uploadFile.uploadFile(_fileName, fileContent)
+                await this.fileRepository.upload(_fileName, fileContent)
             })))
             return Promise.resolve()
         }

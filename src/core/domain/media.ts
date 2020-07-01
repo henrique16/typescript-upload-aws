@@ -1,7 +1,8 @@
 export enum Type {
-    audio = 1,
-    video = 2,
-    screen = 3
+    undefined = "undefined",
+    audio = "audio",
+    video = "video",
+    screen = "screen"
 }
 
 export class Media {
