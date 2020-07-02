@@ -2,7 +2,7 @@ import { MediaRepository } from "../core/interface/mediaRepository"
 import { Media } from "../core/domain/media"
 import fs from "fs"
 
-export class MediaAdapter implements MediaRepository {
+export class InFileMediaRepository implements MediaRepository {
     public save(medias: Media): Promise<void> {
         try {
             const repo: string = "C:/work/medias/repo"
