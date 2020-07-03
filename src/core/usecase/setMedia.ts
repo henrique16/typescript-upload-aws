@@ -10,7 +10,7 @@ export class SetMedia {
         this.mediaRepository = mediaRepository
     }
 
-    public async save(): Promise<void> {
+    public async set(): Promise<void> {
         try {
             await this.mediaRepository.set(this.media)
             return Promise.resolve()
