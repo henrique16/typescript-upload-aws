@@ -1,19 +1,19 @@
-import { uploadFiles } from "../useCaseBuilder/uploadFiles"
-import { saveMedia } from "../useCaseBuilder/saveMedia"
+import { setFiles } from "../useCaseBuilder/setFiles"
+import { setMedia } from "../useCaseBuilder/setMedia"
 import { FsFileHandler } from "../adapter/fsFileHandler"
 import { Media, Type } from "../core/domain/media"
 import { FileHandler } from "../core/interface/fileHandler"
-const debug = true
+const debug = false
 
-export default async function uploadFilesMain(path: string): Promise<void> {
+export default async function (path: string): Promise<void> {
     try {
-        //#region Upload File
+        //#region Set File
         debug && console.log("start upload")
-        await uploadFiles(path)
+        await setFiles(path)
         debug && console.log("sucefully upload")
         //#endregion
 
-        //#region Save Media
+        //#region Set Media
         const fileHandler: FileHandler = new FsFileHandler()
         const fileNames: string[] = await fileHandler.getNames(path)
         debug && console.log("start save media")
@@ -27,7 +27,7 @@ export default async function uploadFilesMain(path: string): Promise<void> {
                 parseInt(s[4]),
                 type
             )
-            await saveMedia(media)
+            await setMedia(media)
         })))
         debug && console.log("sucefully save media")
         //#endregion

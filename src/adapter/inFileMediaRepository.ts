@@ -3,7 +3,7 @@ import { Media } from "../core/domain/media"
 import fs from "fs"
 
 export class InFileMediaRepository implements MediaRepository {
-    public save(medias: Media): Promise<void> {
+    public set(medias: Media): Promise<void> {
         try {
             const repo: string = "C:/work/medias/repo"
             const data = {

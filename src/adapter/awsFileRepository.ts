@@ -2,7 +2,7 @@ import { FileRepository } from "../core/interface/fileRepository"
 import aws from "aws-sdk"
 
 export class AwsFileRepository implements FileRepository {
-    public async upload(fileName: string, fileContent: Buffer): Promise<void> {
+    public async set(fileName: string, fileContent: Buffer): Promise<void> {
         try {
             const credentials = new aws.SharedIniFileCredentials({ profile: 'default' })
             const bucket = new aws.S3({

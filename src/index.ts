@@ -1,6 +1,6 @@
-import uploadFiles from "./main/uploadFiles"
+import setFiles from "./main/setFiles"
 
 const path: string = "C:/work/medias/test"
-uploadFiles(path)
+setFiles(path)
     .then(() => console.log("upload ok"))
     .catch(error => console.log(error))

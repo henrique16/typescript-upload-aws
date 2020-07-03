@@ -1,7 +1,7 @@
 import { FileRepository } from "../interface/fileRepository"
 import { FileHandler } from "../interface/fileHandler"
 
-export class UploadFilesConcrete {
+export class SetFiles {
     private path: string
     private fileHandler: FileHandler
     private fileRepository: FileRepository
@@ -12,14 +12,14 @@ export class UploadFilesConcrete {
         this.fileRepository = fileRepository
     }
 
-    public async upload(): Promise<void> {
+    public async set(): Promise<void> {
         try {
             const fileNames: string[] = await this.fileHandler.getNames(this.path)
             await Promise.all((fileNames.map(async (fileName: string) => {
                 let path: string = `${this.path}/${fileName}`
                 let fileContent: Buffer = await this.fileHandler.getContent(path)
                 let _fileName: string = this.getFileName(fileName)
-                await this.fileRepository.upload(_fileName, fileContent)
+                await this.fileRepository.set(_fileName, fileContent)
             })))
             return Promise.resolve()
         }

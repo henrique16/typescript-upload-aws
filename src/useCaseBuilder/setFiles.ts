@@ -1,16 +1,16 @@
-import { UploadFilesConcrete } from "../core/usecase/uploadFiles"
+import { SetFiles } from "../core/usecase/setFiles"
 import { AwsFileRepository } from "../adapter/awsFileRepository"
 import { FsFileHandler } from "../adapter/fsFileHandler"
 import { FileHandler } from "../core/interface/fileHandler"
 import { FileRepository } from "../core/interface/fileRepository"
 
-export function uploadFiles(path: string): Promise<void> {
+export function setFiles(path: string): Promise<void> {
     const fileHandler: FileHandler = new FsFileHandler()
     const fileRepository: FileRepository = new AwsFileRepository()
-    const uploadFilesConcrete: UploadFilesConcrete = new UploadFilesConcrete(
+    const uploadFilesConcrete: SetFiles = new SetFiles(
         path,
         fileHandler,
         fileRepository
     )
-    return uploadFilesConcrete.upload()
+    return uploadFilesConcrete.set()
 }

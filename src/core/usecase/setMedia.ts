@@ -1,7 +1,7 @@
 import { Media, Type } from "../domain/media"
 import { MediaRepository } from "../interface/mediaRepository"
 
-export class SaveMediaConcrete {
+export class SetMedia {
     private media: Media
     private mediaRepository: MediaRepository
 
@@ -12,7 +12,7 @@ export class SaveMediaConcrete {
 
     public async save(): Promise<void> {
         try {
-            await this.mediaRepository.save(this.media)
+            await this.mediaRepository.set(this.media)
             return Promise.resolve()
         }
         catch (error) {
